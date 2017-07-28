@@ -1,7 +1,6 @@
 
 
 import java.util.Arrays;
-import java.lang.reflect.*;
 import java.util.*;
 
 public class Ocean
@@ -11,21 +10,18 @@ public class Ocean
 	private static int MAP_WEIDTH = 10;
 	
 	private static int battleShips = 1;
-	private static int cruisers = 2;
-	private static int destroyers = 3;
-	private static int submarines = 4;
-	Ship ship;
-	Ship [][] ships = new Ship [MAP_WEIDTH][MAP_HEIGTH]; //Declaration of ships array
-	String [][] map = new String [MAP_WEIDTH][MAP_HEIGTH];
+	private static int cruisers    = 2;
+	private static int destroyers  = 3;
+	private static int submarines  = 4;
+	private Ship ship;
+	private Ship [][] ships = new Ship [MAP_WEIDTH][MAP_HEIGTH]; //Declaration of ships array
+	private String [][] map = new String [MAP_WEIDTH][MAP_HEIGTH];
 	
 	
-	int shotsFired = 0;
-	int hitCount = 0;
-	int shipsSunk = 0;
-	Ship battleship = new Battleship();
-	Ship cruiser = new Cruiser();
-	Ship destroyer = new Destroyer();
-	Ship submarine = new Submarine();
+	private int shotsFired = 0;
+	private int hitCount = 0;
+	private int shipsSunk = 0;
+	
 	
 	
 	
@@ -59,7 +55,12 @@ public class Ocean
 
 	public boolean shootAt(int row, int col)
 	{
-		// TODO: Implement this method
+		
+		if(ships[row][col].isRealShip() == true){
+			return true;
+		}else if(ships[row][col].isSunk() == false){
+			return false;
+		}
 		shotsFired++;
 		return false;
 	}

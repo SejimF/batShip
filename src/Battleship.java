@@ -1,5 +1,12 @@
 public class Battleship extends Ship
 {
+	
+	private static String shipType = "Battleship";
+	private static int length = 4;
+	
+	Battleship(){
+		super(length);
+	}
 
 	@Override
 	boolean shootAt(int row, int column)
@@ -15,20 +22,16 @@ public class Battleship extends Ship
 		return true;
 	}
 
-	@Override
-	boolean isSunk()
+	@Override	boolean isSunk()
 	{
 		// TODO: Implement this method
 		return false;
 	}
 	
 	
-	private static String shipType = "Battleship";
-	private static int length = 4;
 	
-	Battleship(){
-		super(length);
-	}
+	
+	
 
 	@Override
 	String getShipType()
