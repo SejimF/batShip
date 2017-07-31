@@ -32,6 +32,7 @@ public class Ocean
 		for(int n = 0; n < 10; n++){
 			for(int b = 0; b < 10; b++){
 				ships[n][b] = new EmptySea();
+				map[n][b] = " .";
 			}
 		}
 		
@@ -56,11 +57,19 @@ public class Ocean
 	public boolean shootAt(int row, int col)
 	{
 		
-		if(ships[row][col].isRealShip() == true){
+		if(ships[row][col].isSunk() == true && ships[row][col].isRealShip()){
+			map[row][col] = " X";
+			shotsFired++;
 			return true;
-		}else if(ships[row][col].isSunk() == false){
-			return false;
+			
+		}else if(ships[row][col].isRealShip() == true){
+			map[row][col] = " S";
+			ship.shootAt(row, col);
+			shotsFired++;
+			hitCount++;
+			return true;
 		}
+		map[row][col] = " _";
 		shotsFired++;
 		return false;
 	}
@@ -97,7 +106,7 @@ public class Ocean
 	public void print()
 	{
 		int c = 0;
-		System.out.println("0 1 2 3 4 5 6 7 8 9");
+		System.out.println(" 0 1 2 3 4 5 6 7 8 9");
 		for(int b = 0; b <= 9; b++){
 			for(int i = 0; i <= 9; i++){
 				System.out.print(ships[b][i]);
@@ -118,17 +127,21 @@ public class Ocean
 		do{
 			int row = randNum.nextInt(10);     //random row
 			int column = randNum.nextInt(10);  //random column
-			boolean horizont = randNum.nextBoolean();  //random horizontal pos
+			boolean horizont = randNum.nextBoolean(); //random horizontal pos
+			
+			ship.setBowRow(row);
+			ship.setBowColumn(column);
 			ship.setHorizontal(horizont);  //giving the ship horizontal position
 			
 			if(ships[row][column].getShipType().equals("Empty sea") && column + ship.getLength() < 10 && ship.isHorizontal() == true){
 				// if row and col contains empty sea, and if it have place to placed in the length in that horizontal position
 				for(int start = 0; start < ship.getLength(); start++){
-					ships[row][column+start] = ship;
+					ships[ship.getBowRow()][ship.getBowColumn()+start] = ship;
+					ok++;
 					}
 			}else if(ships[row][column].getShipType().equals("Empty sea") && row + ship.getLength() < 10 && ship.isHorizontal() == false){
 				for(int start = 0; start < ship.getLength(); start++){
-					ships[row+start][column] = ship;
+					ships[ship.getBowRow()+start][ship.getBowColumn()] = ship;
 				ok++;
 				}
 			}

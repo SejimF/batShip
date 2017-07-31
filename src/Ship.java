@@ -40,10 +40,17 @@ abstract class Ship
 	void setHorizontal(boolean horizontal){
 		this.horizontal = horizontal;
 	}
-	boolean shootAt(int row, int column){
+	public boolean shootAt(int row, int column){
+		
+		
 		return true;
 	}
-	abstract boolean isRealShip();
-	abstract boolean isSunk();
+	public boolean isRealShip(){
+		return true;
+	}
+	public boolean isSunk(){
+		
+		return false;
+	}
 	
 }

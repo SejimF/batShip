@@ -2,20 +2,20 @@ public class EmptySea extends Ship
 {
 
 	@Override
-	boolean shootAt(int row, int column)
+	public boolean shootAt(int row, int column)
 	{
 		// TODO: Implement this method
 		return false;
 	}
 
 	@Override
-	boolean isRealShip()
+	public boolean isRealShip()
 	{
 		return false;
 	}
 
 	@Override
-	boolean isSunk()
+	public boolean isSunk()
 	{
 		// TODO: Implement this method
 		return false;
