@@ -128,38 +128,44 @@ public class Ocean
 	{
 
 		boolean free = false;
-
+		int shipLength = ship1.getLength();
+		do{
 			if (orientation == true)
 			{
-				for (int i = 0; i < ship1.getLength(); i++)
+				for (int i = 0; i < shipLength + 1; i++)
 				{ //OPEN FOR 1
-
-					if (ships[row]    [col + i].equals("Empty sea") && 
-						ships[row + 1][col + i].equals("Empty sea") &&
-						ships[row - 1][col + i].equals("Empty sea"))
+				  try{//OPEN TRY
+					if (ships[row]    [col + i - 1].equals("Empty sea") &&
+						ships[row + 1][col + i - 1].equals("Empty sea") &&
+						ships[row - 1][col + i - 1].equals("Empty sea"))
 					{ // Open if
-						free = true;
-					}// CLOSE IF
-
-				} //CLOSE FOR 1
+					free = true;
+					}else free = false; // CLOSE IF
+					 }catch(IndexOutOfBoundsException e){  
+						 
+					 } // CLOSE ERROR
+				}return free; //CLOSE FOR 1
 
 			}
 			else if (orientation == false)
 			{ //CLOSE IF AND OPEN IF (IF ELSE)
 
-				for (int a = 0; a < ship1.getLength(); a++)
+				for (int a = 0; a < shipLength + 1; a++)
 				{ //OPEN FOR 1
-
-					if (ships[row + a][col].equals("Empty sea") && 
-						ships[row + a][col + 1].equals("Empty sea") &&
-						ships[row + a][col - 1].equals("Empty sea"))
+					try{
+					if (ships[row + a - 1][col].equals("Empty sea") && 
+						ships[row + a - 1][col + 1].equals("Empty sea") &&
+						ships[row + a - 1][col - 1].equals("Empty sea"))
 					{ // Open if
-						free = true;
-					}// CLOSE IF
+							free = true;
+					}  else free = false;// CLOSE IF
+						}catch(IndexOutOfBoundsException e){
+							
+						}
+				} return free;//CLOSE FOR 1
 
-				} //CLOSE FOR 1
-
-			}  //CLOSE IF 
+			}  //CLOSE IF Else
+			}while(!free);
 
 		return free;
 	}
@@ -171,10 +177,9 @@ public class Ocean
 
 
 		boolean placed = false;
-		do
-		{ // OPEN WHILE
-			ship.setBowRow(rn.nextInt(9));
-			ship.setBowColumn(rn.nextInt(9));
+	do	{ // OPEN WHILE
+			ship.setBowRow(rn.nextInt(10));
+			ship.setBowColumn(rn.nextInt(10));
 			ship.setHorizontal(rn.nextBoolean());
 			if (checkPlace(ship, ship.getBowRow(), ship.getBowColumn(), ship.isHorizontal()) == true)
 			{ //OPEN IF
@@ -184,21 +189,21 @@ public class Ocean
 					for (int i = ship.getBowColumn(); i < ship.getLength(); i++)
 					{ //OPEN FOR
 						ships[ship.getBowRow()][i] = ship;
-						placed = true;
-					} // CLOSE FOR
+						
+				} placed = true;// CLOSE FOR
 				} // CLOSE IF
 				else if (ship.isHorizontal() == false)
 				{ // OPEN IF ELSE
 					for (int i = ship.getBowRow(); i < ship.getLength(); i++)
 					{ // OPEN FOR
 						ships[i][ship.getBowColumn()] = ship;
-						placed = true;
-					} // OPEN FOR
+						
+				} placed = true;// OPEN FOR
 
 				}//CLOSE IF ELSE
 			} // CLOSE IF
 
-		} while(placed == false);// CLOSE WHILE
+	} while(!placed);// CLOSE WHILE
 
 	} // CLOSE METHOD
 
@@ -236,9 +241,9 @@ public class Ocean
 		boolean place = false;
 
 		//while (!place){
-		for (int b = 0; b < shipsi.length; b++)
+		for (int b = 0; b < ShipOne.length; b++)
 		{
-			placeShip(shipsi[b]);
+			placeShip(new Battleship());
 
 		}place = true;
 		//}
