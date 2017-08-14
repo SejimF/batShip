@@ -197,7 +197,7 @@ public class Ocean
 			int col = ship.getBowColumn();
 			
 
-				if (ship.isHorizontal())
+				if (ship.isHorizontal() == true && col + shipLength <= 10)
 				{ //OPEN IF
 					for (int i = col; i < col + shipLength; i++)
 					{ //OPEN FOR
@@ -205,7 +205,7 @@ public class Ocean
 						
 				} placed = true;// CLOSE FOR
 				} // CLOSE IF
-				else if (ship.isHorizontal() == false)
+				else if (ship.isHorizontal() == false && row + shipLength <= 10)
 				{ // OPEN IF ELSE
 					for (int i = row; i < row + shipLength; i++)
 					{ // OPEN FOR
