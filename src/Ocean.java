@@ -122,49 +122,55 @@ public class Ocean
 
 	//GRETING RAND NUMBERS
 
-
-
-	private boolean checkPlace(Ship ship1, int row, int col, boolean orientation)
+	private boolean checkPlace(Ship ship)
 	{
-
 		boolean free = false;
-		int shipLength = ship1.getLength();
+		Random rn = new Random();
+		
 		do{
-			if (orientation == true)
+			
+			
+			ship.setBowRow(rn.nextInt(9));
+			ship.setBowColumn(rn.nextInt(9));
+			ship.setHorizontal(rn.nextBoolean());
+			int shipLength = ship.getLength();
+			int row = ship.getBowRow();
+			int col = ship.getBowColumn();
+			if (ship.isHorizontal() == true)
 			{
 				for (int i = 0; i < shipLength + 1; i++)
 				{ //OPEN FOR 1
-				  try{//OPEN TRY
-					if (ships[row]    [col + i - 1].equals("Empty sea") &&
-						ships[row + 1][col + i - 1].equals("Empty sea") &&
-						ships[row - 1][col + i - 1].equals("Empty sea"))
+				  try{//OPEN TR
+					  if (ships[row]    [col + i - 1].getShipType().equals("Empty sea") && 
+					  ships[row + 1][col + i - 1].getShipType().equals("Empty sea") &&	
+					  ships[row - 1][col + i - 1].getShipType().equals("Empty sea"))
 					{ // Open if
 					free = true;
-					}else free = false; // CLOSE IF
+					} else{ free = false; break;}// CLOSE IF
 					 }catch(IndexOutOfBoundsException e){  
 						 
 					 } // CLOSE ERROR
-				}return free; //CLOSE FOR 1
+				} //CLOSE FOR 1
 
 			}
-			else if (orientation == false)
+			else if (ship.isHorizontal() == false)
 			{ //CLOSE IF AND OPEN IF (IF ELSE)
 
 				for (int a = 0; a < shipLength + 1; a++)
 				{ //OPEN FOR 1
 					try{
-					if (ships[row + a - 1][col].equals("Empty sea") && 
-						ships[row + a - 1][col + 1].equals("Empty sea") &&
-						ships[row + a - 1][col - 1].equals("Empty sea"))
+						if (ships[row + a - 1][col].getShipType().equals("Empty sea") && 
+							ships[row + a - 1][col + 1].getShipType().equals("Empty sea") &&
+							ships[row + a - 1][col - 1].getShipType().equals("Empty sea"))
 					{ // Open if
 							free = true;
-					}  else free = false;// CLOSE IF
+					} else{ free = false; break;}// CLOSE IF
 						}catch(IndexOutOfBoundsException e){
 							
 						}
-				} return free;//CLOSE FOR 1
+				}//CLOSE FOR 1
 
-			}  //CLOSE IF Else
+			} //CLOSE IF Else
 			}while(!free);
 
 		return free;
@@ -173,30 +179,37 @@ public class Ocean
 	private void placeShip(Ship ship)
 	{
 
-		Random rn = new Random();
+		
 
 
 		boolean placed = false;
+		
 	do	{ // OPEN WHILE
-			ship.setBowRow(rn.nextInt(10));
-			ship.setBowColumn(rn.nextInt(10));
-			ship.setHorizontal(rn.nextBoolean());
-			if (checkPlace(ship, ship.getBowRow(), ship.getBowColumn(), ship.isHorizontal()) == true)
+	
+			
+			boolean chek = checkPlace(ship);
+			
+		if (chek)
 			{ //OPEN IF
+			
+			int shipLength = ship.getLength();
+			int row = ship.getBowRow();
+			int col = ship.getBowColumn();
+			
 
 				if (ship.isHorizontal())
 				{ //OPEN IF
-					for (int i = ship.getBowColumn(); i < ship.getLength(); i++)
+					for (int i = col; i < col + shipLength; i++)
 					{ //OPEN FOR
-						ships[ship.getBowRow()][i] = ship;
+						ships[row][i] = ship;
 						
 				} placed = true;// CLOSE FOR
 				} // CLOSE IF
 				else if (ship.isHorizontal() == false)
 				{ // OPEN IF ELSE
-					for (int i = ship.getBowRow(); i < ship.getLength(); i++)
+					for (int i = row; i < row + shipLength; i++)
 					{ // OPEN FOR
-						ships[i][ship.getBowColumn()] = ship;
+						ships[i][col] = ship;
 						
 				} placed = true;// OPEN FOR
 
@@ -240,13 +253,13 @@ public class Ocean
 
 		boolean place = false;
 
-		//while (!place){
-		for (int b = 0; b < ShipOne.length; b++)
+		while (!place){
+		for (int b = 0; b < shipsi.length; b++)
 		{
-			placeShip(new Battleship());
+			placeShip(shipsi[b]);
 
 		}place = true;
-		//}
+		}
 	}
 
 }
