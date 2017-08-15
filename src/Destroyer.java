@@ -2,7 +2,7 @@ public class Destroyer extends Ship
 {
 	private static String shipType = "Destroyer";
 	private static int length = 2;
-	String sortName = " D";
+	private String sortName = " D";
 	
 	String getShipSType()
 	{

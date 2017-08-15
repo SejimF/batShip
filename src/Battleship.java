@@ -3,7 +3,7 @@ public class Battleship extends Ship
 	
 	private static String shipType = "Battleship";
 	private static int length = 4;
-	String sortName = " B";
+	private String sortName = " B";
 	
 	String getShipSType()
 	{

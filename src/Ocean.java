@@ -88,7 +88,7 @@ public class Ocean
 			map[row][col] = " S";
 			shotsFired++;
 			hitCount++;
-			if(ships[row][col].isSunk() == true){
+			if(ships[row][col].isSunk() == true){ //if ship sunk add 1vto shipsSunk;
 				shipsSunk++;
 			}
 			
@@ -129,8 +129,10 @@ public class Ocean
 	}
 
 
-	/*GRETING RAND NUMBERS
+	/*
+	Geting random numbers and setting them in the ship object
 	And cheking free place for a ship
+	if have place return true, else try again
 	
 	
 	*/
@@ -191,6 +193,11 @@ public class Ocean
 		return free;
 	}
 
+	/**
+	Cheking if chek is true, andvplacing ship in the array of ships[][]
+	
+	**/
+	
 	private void placeShip(Ship ship)
 	{
 
@@ -274,7 +281,7 @@ public class Ocean
 		while (!place){
 		for (int b = 0; b < shipsi.length; b++)
 		{
-			placeShip(shipsi[b]);
+			placeShip(shipsi[b]); //placing ships one by one from array index
 
 		}place = true;
 		}

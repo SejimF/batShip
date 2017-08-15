@@ -1,7 +1,7 @@
 public class Submarine extends Ship
 {
 	private String ShipType= "Submarine";
-	String sortName = " S";
+	private String sortName = " S";
 	private static int length = 1;
 	
 	

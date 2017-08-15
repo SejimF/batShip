@@ -1,7 +1,7 @@
 public class EmptySea extends Ship
 {
 
-	String sortName = " ~";
+	private String sortName = " ~";
 	
 	String getShipSType()
 	{
