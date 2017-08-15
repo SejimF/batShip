@@ -17,6 +17,9 @@ public class Ocean
 	private int hitCount = 0;
 	private int shipsSunk = 0;
 
+	/** 
+	Array of ships to be added on array of ships;
+	**/
 	Ship shipsi[] = new Ship[]{
 		new Battleship(),
 		new Cruiser(),
@@ -30,15 +33,13 @@ public class Ocean
 		new Submarine()
 	};
 
-	Ship [] ShipOne = new Ship[]{
-		new Battleship(),
-	};
+	
 
 
 
 
 
-	//CONSTRUCTOR
+	//CONSTRUCTOR ocean of empty seas
 	Ocean()
 	{
 		for (int n = 0; n < 10; n++)
@@ -59,7 +60,7 @@ public class Ocean
 
 	public String getShipTypeAt(int row, int col)
 	{
-		// TODO: Implement this method
+		
 		return ships[row][col].getShipType();
 	}
 
@@ -74,18 +75,26 @@ public class Ocean
 
 		if (ships[row][col].isSunk() == true && ships[row][col].isRealShip())
 		{
-			map[row][col] = " X";
+			ships[row][col].shootAt(row,col); //Method shootAt in Ship class
+			map[row][col] = " X"; //Mark as X location if ship is sunk
 			shotsFired++;
-			return true;
+			
+			return false;
 
 		}
-		else if (ships[row][col].isRealShip() == true)
+		else if (ships[row][col].isRealShip() == true && ships[row][col].isSunk() == false)
 		{
-
+			ships[row][col].shootAt(row,col);
+			map[row][col] = " S";
 			shotsFired++;
 			hitCount++;
+			if(ships[row][col].isSunk() == true){
+				shipsSunk++;
+			}
+			
 			return true;
 		}
+		
 		map[row][col] = " _";
 		shotsFired++;
 		return false;
@@ -120,8 +129,11 @@ public class Ocean
 	}
 
 
-	//GRETING RAND NUMBERS
-
+	/*GRETING RAND NUMBERS
+	And cheking free place for a ship
+	
+	
+	*/
 	private boolean checkPlace(Ship ship)
 	{
 		boolean free = false;
@@ -136,12 +148,14 @@ public class Ocean
 			int shipLength = ship.getLength();
 			int row = ship.getBowRow();
 			int col = ship.getBowColumn();
+			ship.initHit(shipLength);
 			if (ship.isHorizontal() == true)
 			{
 				for (int i = 0; i < shipLength + 1; i++)
 				{ //OPEN FOR 1
 				  try{//OPEN TR
-					  if (ships[row]    [col + i - 1].getShipType().equals("Empty sea") && 
+					  if (col + shipLength <= 10 &&
+					  ships[row]    [col + i - 1].getShipType().equals("Empty sea") && 
 					  ships[row + 1][col + i - 1].getShipType().equals("Empty sea") &&	
 					  ships[row - 1][col + i - 1].getShipType().equals("Empty sea"))
 					{ // Open if
@@ -159,7 +173,8 @@ public class Ocean
 				for (int a = 0; a < shipLength + 1; a++)
 				{ //OPEN FOR 1
 					try{
-						if (ships[row + a - 1][col].getShipType().equals("Empty sea") && 
+						if (row + shipLength <=10 &&
+						    ships[row + a - 1][col].getShipType().equals("Empty sea") && 
 							ships[row + a - 1][col + 1].getShipType().equals("Empty sea") &&
 							ships[row + a - 1][col - 1].getShipType().equals("Empty sea"))
 					{ // Open if
@@ -234,8 +249,11 @@ public class Ocean
 		{
 			for (int i = 0; i <= 9; i++)
 			{
-				System.out.print(ships[b][i]);
-			}
+				//System.out.print(ships[b][i].getShipSType());
+				 if(ships[b][i].isSunk() == true && ships[b][i].isRealShip() == true){
+					System.out.print(" X");
+			    }else System.out.print(map[b][i]);
+				}
 			System.out.println(c++);
 		}
 	}

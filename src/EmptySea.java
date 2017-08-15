@@ -1,6 +1,14 @@
 public class EmptySea extends Ship
 {
 
+	String sortName = " ~";
+	
+	String getShipSType()
+	{
+		// TODO: Implement this method
+		return sortName;
+	}
+	
 	@Override
 	public boolean shootAt(int row, int column)
 	{

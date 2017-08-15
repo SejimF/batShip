@@ -1,6 +1,7 @@
 public class Submarine extends Ship
 {
 	private String ShipType= "Submarine";
+	String sortName = " S";
 	private static int length = 1;
 	
 	
@@ -15,4 +16,10 @@ public class Submarine extends Ship
 		// TODO: Implement this method
 		return ShipType;
 	}
+	String getShipSType()
+	{
+		// TODO: Implement this method
+		return sortName;
+	}
+	
 }

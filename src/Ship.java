@@ -3,23 +3,21 @@ import java.lang.*;
 
 abstract class Ship
 {
-	private static int bowRow;  //declaration of ship position on row
-	private static int bowColumn; // declaration of ship position on column
-	private  int length; // declaration how long is ship
-	private static boolean horizontal; // if true == position horizontal if != true it's vertical position
-	private boolean [] hit  = new boolean[getLength()];  // hit registration
+	private int bowRow;  //declaration of ship position on row
+	private int bowColumn; // declaration of ship position on column
+	private   int length; // declaration how long is ship
+	private boolean horizontal; // if true == position horizontal if != true it's vertical position
+	private boolean [] hit;  // hit registration
 	
 	// Constructor
+	
+	abstract String getShipSType();
 	
 	Ship(int length){
 		
 		this.length = length;
 		
-		if(isRealShip()){
-			for(int i = 0; i < hit.length; i++){
-				hit[i] = false;
-			}
-		}
+		
 		
 		
 		
@@ -40,6 +38,8 @@ abstract class Ship
 		return length;
 	}
 	
+	
+	
 	abstract String getShipType();
 	
 	void setBowRow(int row){
@@ -55,15 +55,13 @@ abstract class Ship
 	
 	public boolean shootAt(int row, int column){
 		
-		/* 
-		if(isRealShip() == false){
-
-		}else if(isHorizontal() == true && isRealShip() == true){
-			hit[column - getBowRow()] = true;
+		
+		if(isHorizontal() == true && isRealShip() == true){
+			hit[column - getBowColumn()] = true;
 		}else if(isHorizontal() == false && isRealShip() == true){
-			hit[row - getBowColumn()] = true;
+			hit[row - getBowRow()] = true;
 		}
-		*/
+	
 		return true;
 		
 	} 
@@ -75,8 +73,26 @@ abstract class Ship
 	
 	
 	public boolean isSunk(){
-		for(boolean check : hit) if(!check) return true;
-		return false;
+		
+		for(int i = 0; i < hit.length; i++){
+			if(hit[i] == false){
+				return false;
+			}
+			
+											}
+		
+		return true;
+	}
+	
+	public void initHit(int length){
+		
+		
+
+		if(isRealShip() == true){
+			for(int i = 0; i <= length; i++){
+				hit = new boolean[i];
+			}
+		}
 	}
 	
 }
